@@ -29,6 +29,24 @@ sudo unlink /etc/nginx/sites-enabled/default
 sudo nginx -s reload
 #nginx ready
 
+#supervisor config
+sudo mkdir /var/log/main
+sudo touch /var/log/main/flask_app.out.log
+sudo touch /var/log/main/flask_app.err.log
+
+echo "[program:main]
+directory=$(pwd)
+command=gunicorn -w 10 main:app
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+stderr_logfile=/var/log/main/flask_app.err.log
+stdout_logfile=/var/log/main/flask_app.out.log" > /etc/supervisor/conf.d/flask_app.conf
+
+#run supervisor
+sudo supervisorctl reload
+
 #You can change worker count in here
 #main is for run file
 gunicorn -w 10 main:app

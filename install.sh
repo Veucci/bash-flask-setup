@@ -10,7 +10,7 @@ sudo apt-get install gunicorn -y
 sudo apt-get install unzip -y
 sudo pip3 install -r requirements.txt
 
-read -p 'External IP Adress: ' server_name
+server_name=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
 echo "server {
     listen 80;

@@ -1,1 +1,1 @@
-cd /home/tv && gunicorn -w 10 main:app
+gunicorn -w 10 main:app
